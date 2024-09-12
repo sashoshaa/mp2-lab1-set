@@ -286,3 +286,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/sln/vc10/test_bitfield/test_bitfield.vcxproj
