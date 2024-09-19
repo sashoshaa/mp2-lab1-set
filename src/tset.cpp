@@ -12,7 +12,7 @@ static const int FAKE_INT = -1;
 static TBitField FAKE_BITFIELD(1);
 static TSet FAKE_SET(1);
 
-TSet::TSet(int mp) : BitField(-1)
+TSet::TSet(int mp) : BitField(mp), MaxPower(mp)
 {
     if (mp <= 0) {
         throw std::invalid_argument("MaxPower must be positive");
@@ -147,18 +147,6 @@ istream& operator>>(istream& istr, TSet& s) // ввод
 
 ostream& operator<<(ostream& ostr, const TSet& s) // вывод
 {
-    //ostr << "{";
-    //bool first = true;
-    for (int i = 0; i < s.MaxPower; i++) {
-        ostr << i;
-        /*if (s.IsMember(i)) {
-            if (!first) {
-                ostr << ", ";
-            }
-            ostr << i;
-            first = false;
-        }*/
-    }
-    //ostr << "}";
+    ostr << s.BitField;
     return ostr;
 }

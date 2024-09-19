@@ -7,7 +7,7 @@
 
 #include <iomanip>
 
- #define USE_SET // Использовать класс TSet,
+ //#define USE_SET // Использовать класс TSet,
                 // закоментировать, чтобы использовать битовое поле
 
 #ifndef USE_SET // Использовать класс TBitField
@@ -17,6 +17,7 @@
 int main()
 {
   int n, m, k, count;
+
 
   setlocale(LC_ALL, "Russian");
   cout << "Тестирование программ поддержки битового поля" << endl;
