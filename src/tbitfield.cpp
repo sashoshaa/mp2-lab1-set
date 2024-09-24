@@ -26,7 +26,6 @@ TBitField::TBitField(const TBitField& bf) // конструктор копиро
 {
 	BitLen = bf.BitLen;
 	MemLen = bf.MemLen;
-
 	pMem = new TELEM[MemLen];
 	std::memcpy(pMem, bf.pMem, MemLen * sizeof(TELEM));
 }
@@ -34,7 +33,7 @@ TBitField::TBitField(const TBitField& bf) // конструктор копиро
 
 TBitField::~TBitField() // деструктор
 {
-	delete[] pMem;
+	delete[]pMem;
 }
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
@@ -117,49 +116,25 @@ int TBitField::operator!=(const TBitField& bf) const // сравнение
 	return !(*this == bf);
 }
 
-TBitField TBitField::operator|(const TBitField& bf) // операция побитовое "или"
+TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 {
-	int len;
-	int len1;
-	if (BitLen > bf.BitLen) {
-		len = BitLen;
-		len1 = bf.BitLen;
-	}
-	else {
-		len = bf.BitLen;
-		len1 = BitLen;
-	}
-	TBitField res(len);
-	int i = 0;
-	for (i = 0; i < len1; i++)
-		res.pMem[i] = pMem[i] | bf.pMem[i];
-	while (i < len)
-	{
-		if (BitLen > bf.BitLen)
-			res.pMem[i] = pMem[i];
-		else
-			res.pMem[i] = bf.pMem[i];
-		i++;
-	}
-	return res;
+	int len = BitLen > bf.BitLen ? BitLen : bf.BitLen;
+	len = std::max(BitLen, bf.BitLen);
+	TBitField result(len);
+	for (int i = 0; i < MemLen; ++i)
+		result.pMem[i] = pMem[i] | bf.pMem[i];
+
+	return result;
 }
 
-TBitField TBitField::operator&(const TBitField& bf) // операция побитовое "и"
+TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
-	int len;
-	int len1;
-	if (BitLen > bf.BitLen) {
-		len = BitLen;
-		len1 = bf.BitLen;
-	}
-	else {
-		len = bf.BitLen;
-		len1 = BitLen;
-	}
-	TBitField res(len);
-	for (int i = 0; i < len1; i++)
-		res.pMem[i] = pMem[i] & bf.pMem[i];
-	return res;
+	int len = BitLen > bf.BitLen ? BitLen : bf.BitLen;
+	TBitField result(len);
+	for (int i = 0; i < result.MemLen; ++i)
+		result.pMem[i] = pMem[i] & bf.pMem[i];
+
+	return result;
 }
 
 
